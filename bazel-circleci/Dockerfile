@@ -11,8 +11,8 @@ RUN echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90circleci \
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHON_PIP_VERSION 18.0
-ENV BAZEL_VERSION 0.16.1
-ENV KUBECTL_VERSION 1.9.6
+ENV BAZEL_VERSION 0.17.1
+ENV KUBECTL_VERSION 1.10.7
 
 RUN apt-get update && \
     mkdir -p /usr/share/man/man1 && \

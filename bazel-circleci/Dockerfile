@@ -11,7 +11,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90circleci \
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHON_PIP_VERSION 18.0
-ENV BAZEL_VERSION 0.17.1
+ENV BAZEL_VERSION 0.18.0
 ENV KUBECTL_VERSION 1.10.7
 
 RUN apt-get update && \
@@ -33,6 +33,7 @@ RUN apt-get update && \
         zlib1g-dev \
         unzip \
         xz-utils \
+        patch \
     && \
     sudo rm -rf /var/lib/apt/lists/*
 
@@ -70,6 +71,8 @@ RUN set -eux && \
     sudo /tmp/bazel-installer.sh && \
     rm /tmp/bazel-installer.sh
 RUN bazel version
+
+# Install docker
 RUN VER="17.03.0-ce" && \
     curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz && \
     sudo tar -xz -C /tmp -f /tmp/docker-$VER.tgz && \

@@ -64,7 +64,14 @@ RUN set -eux && \
     chmod +x ./kubectl && \
     sudo mv ./kubectl /usr/local/bin/kubectl
 
-# install bazel
+# install jdk11
+# For reasoning see: https://github.com/bazelbuild/bazel/issues/6592
+RUN set -eux && \
+    echo "deb http://deb.debian.org/debian/ testing main" | sudo tee --append /etc/apt/sources.list && \
+    sudo apt-get update && \
+    sudo apt-get install openjdk-11-jdk
+
+# Install bazel
 RUN set -eux && \
     curl -L --fail -o /tmp/bazel-installer.sh https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
     chmod +x /tmp/bazel-installer.sh  && \

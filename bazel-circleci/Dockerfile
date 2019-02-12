@@ -35,6 +35,7 @@ RUN apt-get update && \
         unzip \
         xz-utils \
         patch \
+        procps \
     && \
     sudo rm -rf /var/lib/apt/lists/*
 

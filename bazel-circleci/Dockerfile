@@ -24,6 +24,7 @@ RUN apt-get update && \
         git \
         gnupg \
         gzip \
+        jq \
         openssh-client \
         python \
         sudo \
@@ -83,3 +84,7 @@ RUN VER="17.03.0-ce" && \
 
 # Install aws cli
 RUN sudo pip3 install awscli --upgrade
+
+RUN curl -L --fail -o /tmp/vault.zip https://releases.hashicorp.com/vault/1.0.3/vault_1.0.3_linux_amd64.zip && \
+    unzip /tmp/vault.zip -d /tmp/vault && \
+    sudo mv /tmp/vault/vault /usr/local/bin

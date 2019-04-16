@@ -38,7 +38,7 @@ RUN apt-get update && \
         patch \
         procps \
         # Dependencies for Cypress framework
-        xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 \
+        xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 \
     && \
     sudo rm -rf /var/lib/apt/lists/*
 

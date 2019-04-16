@@ -2,7 +2,6 @@ FROM golang:1.10-stretch as intermediate
 
 RUN go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 
-
 FROM python:3.6.6-slim-stretch
 
 # make Apt non-interactive
@@ -37,6 +36,7 @@ RUN apt-get update && \
         xz-utils \
         patch \
         procps \
+        wget \
         # Dependencies for Cypress framework
         xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 \
     && \
@@ -83,6 +83,12 @@ RUN VER="17.03.0-ce" && \
     curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz && \
     sudo tar -xz -C /tmp -f /tmp/docker-$VER.tgz && \
     sudo mv /tmp/docker/* /usr/bin
+
+# Install helm
+RUN VER="v2.13.1" && \
+    curl -L --fail -o /tmp/helm-$VER.tgz https://storage.googleapis.com/kubernetes-helm/helm-$VER-linux-amd64.tar.gz && \
+    sudo tar -zx -C /tmp -f /tmp/helm-$VER.tgz && \
+    sudo mv /tmp/linux-amd64/helm /usr/local/bin/helm
 
 # Install aws cli
 RUN sudo pip3 install awscli --upgrade

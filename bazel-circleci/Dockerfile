@@ -2,7 +2,6 @@ FROM golang:1.10-stretch as intermediate
 
 RUN go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 
-
 FROM python:3.6.6-slim-stretch
 
 # make Apt non-interactive
@@ -23,6 +22,7 @@ RUN apt-get update && \
         git \
         gnupg \
         gzip \
+        jq \
         openssh-client \
         python \
         sudo \
@@ -34,6 +34,10 @@ RUN apt-get update && \
         unzip \
         xz-utils \
         patch \
+        procps \
+        wget \
+        # Dependencies for Cypress framework
+        xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 \
     && \
     sudo rm -rf /var/lib/apt/lists/*
 
@@ -66,7 +70,8 @@ RUN set -eux && \
 
 # Install bazel
 RUN set -eux && \
-    curl -L --fail -o /tmp/bazel-installer.sh https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
+    curl -L --fail -o /tmp/bazel-installer.sh https://releases.bazel.build/0.23.0/rc1/bazel-0.23.0rc1-installer-linux-x86_64.sh && \
+    # curl -L --fail -o /tmp/bazel-installer.sh https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
     chmod +x /tmp/bazel-installer.sh  && \
     sudo /tmp/bazel-installer.sh && \
     rm /tmp/bazel-installer.sh
@@ -78,5 +83,15 @@ RUN VER="17.03.0-ce" && \
     sudo tar -xz -C /tmp -f /tmp/docker-$VER.tgz && \
     sudo mv /tmp/docker/* /usr/bin
 
+# Install helm
+RUN VER="v2.13.1" && \
+    curl -L --fail -o /tmp/helm-$VER.tgz https://storage.googleapis.com/kubernetes-helm/helm-$VER-linux-amd64.tar.gz && \
+    sudo tar -zx -C /tmp -f /tmp/helm-$VER.tgz && \
+    sudo mv /tmp/linux-amd64/helm /usr/local/bin/helm
+
 # Install aws cli
 RUN sudo pip3 install awscli --upgrade
+
+RUN curl -L --fail -o /tmp/vault.zip https://releases.hashicorp.com/vault/1.0.3/vault_1.0.3_linux_amd64.zip && \
+    unzip /tmp/vault.zip -d /tmp/vault && \
+    sudo mv /tmp/vault/vault /usr/local/bin

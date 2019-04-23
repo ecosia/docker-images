@@ -11,7 +11,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' > /etc/apt/apt.conf.d/90circleci \
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHON_PIP_VERSION 18.0
-ENV BAZEL_VERSION 0.22.0
+ENV BAZEL_VERSION 0.24.1
 ENV KUBECTL_VERSION 1.11.6
 
 RUN apt-get update && \
@@ -63,13 +63,6 @@ RUN set -eux && \
     curl -LO https://storage.googleapis.com/kubernetes-release/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
     sudo mv ./kubectl /usr/local/bin/kubectl
-
-# install jdk11
-# For reasoning see: https://github.com/bazelbuild/bazel/issues/6592
-RUN set -eux && \
-    echo "deb http://deb.debian.org/debian/ testing main" | sudo tee --append /etc/apt/sources.list && \
-    sudo apt-get update && \
-    sudo apt-get install openjdk-11-jdk
 
 # Install bazel
 RUN set -eux && \

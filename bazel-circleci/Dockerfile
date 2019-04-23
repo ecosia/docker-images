@@ -70,8 +70,7 @@ RUN set -eux && \
 
 # Install bazel
 RUN set -eux && \
-    curl -L --fail -o /tmp/bazel-installer.sh https://releases.bazel.build/0.23.0/rc1/bazel-0.23.0rc1-installer-linux-x86_64.sh && \
-    # curl -L --fail -o /tmp/bazel-installer.sh https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
+    curl -L --fail -o /tmp/bazel-installer.sh https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
     chmod +x /tmp/bazel-installer.sh  && \
     sudo /tmp/bazel-installer.sh && \
     rm /tmp/bazel-installer.sh

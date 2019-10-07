@@ -1,6 +1,7 @@
 FROM golang:1.10-stretch as intermediate
 
 RUN go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
+RUN go get -u github.com/russellcardullo/terraform-provider-pingdom
 
 FROM python:3.6.6-slim-stretch
 
@@ -94,3 +95,10 @@ RUN sudo pip3 install awscli --upgrade
 RUN curl -L --fail -o /tmp/vault.zip https://releases.hashicorp.com/vault/1.0.3/vault_1.0.3_linux_amd64.zip && \
     unzip /tmp/vault.zip -d /tmp/vault && \
     sudo mv /tmp/vault/vault /usr/local/bin
+
+# Install terraform binary
+RUN wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip && \
+    unzip terraform_0.12.9_linux_amd64.zip && \
+    sudo mv terraform /usr/local/bin
+
+COPY --from=intermediate /go/bin/terraform-provider-pingdom ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom_vX

@@ -100,6 +100,10 @@ RUN curl -L --fail -o /tmp/vault.zip https://releases.hashicorp.com/vault/1.0.3/
 # Install terraform binary
 RUN wget https://releases.hashicorp.com/terraform/0.12.9/terraform_0.12.9_linux_amd64.zip && \
     unzip terraform_0.12.9_linux_amd64.zip && \
-    sudo mv terraform /usr/local/bin
+    sudo mv terraform /usr/local/bin && \
+    rm terraform_0.12.9_linux_amd64.zip
 
-COPY --from=intermediate /go/bin/terraform-provider-pingdom ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom_vX
+# Install terraform pingdom provider
+COPY --from=intermediate /go/bin/terraform-provider-pingdom /terraform-provider-pingdom
+RUN mkdir -p ~/.terraform.d/plugins/linux_amd64 && \
+    sudo mv /terraform-provider-pingdom ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom_v$(date +%Y.%m.%d)

@@ -39,14 +39,14 @@ COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=vault /bin/vault /usr/local/bin/vault
 COPY --from=helm /usr/bin/helm /usr/local/bin/helm
 COPY --from=mbt /go/bin/mbt /usr/local/bin/mbt
-
 COPY --from=intermediate /go/bin/terraform-provider-pingdom /terraform-provider-pingdom
-RUN mkdir -p ~/.terraform.d/plugins/linux_amd64 && \
-    mv /terraform-provider-pingdom ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom_v$(date +%Y.%m.%d)
  
 RUN addgroup -S circleci && adduser --shell /bin/bash -S -G circleci circleci
 RUN echo "circleci ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER circleci
 WORKDIR /home/circleci
+
+RUN mkdir -p ~/.terraform.d/plugins/linux_amd64 && \
+    sudo mv /terraform-provider-pingdom ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom_v$(date +%Y.%m.%d) && sudo chown -R circleci:circleci ~/.terraform.d
 

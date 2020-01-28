@@ -12,6 +12,7 @@ RUN apt-get update && \
 
 RUN npm install -g npm@6.9.0
 RUN npm install -g yarn@1.15.2
+RUN npm install cypress@3.4.1
 
 # versions of local tools
 RUN echo  " node version:    $(node -v) \n" \

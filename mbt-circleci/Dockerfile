@@ -2,15 +2,10 @@ FROM golang:1.13-alpine as intermediate
 
 RUN apk add --update git
 
-
 RUN go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 RUN go get -u github.com/russellcardullo/terraform-provider-pingdom
 
 FROM hashicorp/terraform:0.12.9 as tf
-COPY --from=intermediate /go/bin/terraform-provider-pingdom /terraform-provider-pingdom
-RUN mkdir -p ~/.terraform.d/plugins/linux_amd64 && \
-    mv /terraform-provider-pingdom ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom_v$(date +%Y.%m.%d)
-
 FROM ecosiadev/kubectl:v1.11.6 as kubectl
 FROM vault:1.0.3 as vault
 FROM alpine/helm:2.13.1 as helm
@@ -43,6 +38,10 @@ COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=vault /bin/vault /usr/local/bin/vault
 COPY --from=helm /usr/bin/helm /usr/local/bin/helm
 COPY --from=mbt /go/bin/mbt /usr/local/bin/mbt
+
+COPY --from=intermediate /go/bin/terraform-provider-pingdom /terraform-provider-pingdom
+RUN mkdir -p ~/.terraform.d/plugins/linux_amd64 && \
+    mv /terraform-provider-pingdom ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom_v$(date +%Y.%m.%d)
  
 RUN addgroup -S circleci && adduser --shell /bin/bash -S -G circleci circleci
 RUN echo "circleci ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers

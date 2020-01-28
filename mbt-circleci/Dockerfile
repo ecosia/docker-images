@@ -26,6 +26,7 @@ RUN apk add --update \
     gzip \
     ca-certificates \
     bash \
+    g++ \
     parallel
 
 RUN apk add libgit2-dev==0.27.3-r0

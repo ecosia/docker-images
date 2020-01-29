@@ -32,7 +32,7 @@ RUN apk add --update \
 RUN apk add libgit2-dev==0.27.3-r0
 
 # Install aws cli
-RUN pip3 install awscli --upgrade
+RUN pip3 install awscli --upgrade && pip install --user pipenv
 
 COPY --from=tf /bin/terraform /usr/local/bin/terraform
 COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/kubectl
@@ -49,4 +49,3 @@ RUN echo "circleci ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER circleci
 WORKDIR /home/circleci
-

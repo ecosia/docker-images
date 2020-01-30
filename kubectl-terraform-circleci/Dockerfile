@@ -14,6 +14,7 @@ RUN apk add --update \
     sudo \
     git \
     openssh-client \
+    g++ \
     bash
 
 COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/kubectl

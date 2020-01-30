@@ -16,7 +16,12 @@ jobs:
       - run:
           name: Detect changed directories
           command: |
-            git diff-tree --no-commit-id --name-only -r HEAD | xargs dirname | uniq > .modified
+            if [ $CIRCLE_BRANCH == "master" ]; then
+              filenames=$(git diff-tree --no-commit-id --name-only -r HEAD)
+            else
+              filenames=$(git diff master --name-only)
+            fi
+            echo $filenames | xargs dirname | uniq > .modified
       - run:
           name: Build and push modified images
           command: |

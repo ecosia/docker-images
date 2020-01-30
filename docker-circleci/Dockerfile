@@ -9,4 +9,5 @@ RUN apk upgrade && \
     python3
 
 RUN pip3 install --user awscli
+ENV PATH="~/.local/bin:${PATH}"
 

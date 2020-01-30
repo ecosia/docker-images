@@ -5,14 +5,16 @@ jobs:
     docker:
       - image: docker
     steps:
-      - checkout
-      - setup_remote_docker
       - run:
           name: Install dependencies
           command: |
             apk add --no-cache \
               make \
-              git
+              git \
+              coreutils \
+              findutils
+      - checkout
+      - setup_remote_docker
       - run:
           name: Detect changed directories
           command: |

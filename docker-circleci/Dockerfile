@@ -7,7 +7,8 @@ RUN apk upgrade && \
     bash \
     openssh-client \
     python3 \
-    parallel
+    parallel \
+    sudo
 
 RUN pip3 install --user awscli
 ENV PATH="~/.local/bin:${PATH}"

@@ -11,6 +11,7 @@ jobs:
             apk add --no-cache \
               make \
               git \
+              openssh-client \
               coreutils \
               findutils
       - checkout

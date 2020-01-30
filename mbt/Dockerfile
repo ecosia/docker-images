@@ -8,7 +8,8 @@ RUN apk upgrade && \
     pkgconf \
     git \
     bash \
-    jq
+    jq \
+    openssh-client
 
 RUN apk add libgit2-dev==0.27.3-r0
 RUN go get -u github.com/mbtproject/mbt

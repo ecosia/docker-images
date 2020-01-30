@@ -1,0 +1,12 @@
+FROM docker:19
+
+RUN apk upgrade && \
+    apk add --update \
+    make \
+    git \
+    bash \
+    openssh-client \
+    python3
+
+RUN pip3 install --user awscli
+

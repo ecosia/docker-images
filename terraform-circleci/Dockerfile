@@ -16,7 +16,7 @@ RUN apk add --update \
 
 COPY --from=tf /bin/terraform /usr/local/bin/terraform
 COPY --from=vault /bin/vault /usr/local/bin/vault
-COPY --from=intermediate /go/bin/terraform-provider-pingdom /terraform-provider-pingdom
+COPY --from=gobuilder /go/bin/terraform-provider-pingdom /terraform-provider-pingdom
  
 RUN addgroup -S circleci && adduser --shell /bin/bash -S -G circleci circleci
 RUN echo "circleci ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers

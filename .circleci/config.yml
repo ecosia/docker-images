@@ -21,7 +21,7 @@ jobs:
             if [ $CIRCLE_BRANCH == "master" ]; then
               filenames=$(git diff-tree --no-commit-id --name-only -r HEAD)
             else
-              filenames=$(git diff master --name-only)
+              filenames=$(git diff origin/master --name-only)
             fi
             echo "Filenames in diff: $filenames"
             echo $filenames | xargs dirname | uniq > .modified

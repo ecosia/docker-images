@@ -11,6 +11,7 @@ jobs:
             apk add --no-cache \
               make \
               git \
+              openssh-client \
               coreutils \
               findutils
       - checkout
@@ -23,7 +24,7 @@ jobs:
             else
               filenames=$(git diff origin/master --name-only)
             fi
-            echo "Filenames in diff: $filenames"
+            echo ">>> Filenames in diff: $filenames"
             echo $filenames | xargs dirname | uniq > .modified
       - run:
           name: Log in to docker hub
@@ -32,6 +33,8 @@ jobs:
       - run:
           name: Build and push modified images
           command: |
+            echo ">>> Directories to build: $(cat .modified)"
+
             while read d; do
               set +e
               makeable=$(make -s -q -C $d build) > /dev/null

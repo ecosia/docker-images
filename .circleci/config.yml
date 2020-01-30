@@ -21,6 +21,7 @@ jobs:
             else
               filenames=$(git diff master --name-only)
             fi
+            echo "Filenames in diff: $filenames"
             echo $filenames | xargs dirname | uniq > .modified
       - run:
           name: Build and push modified images

@@ -11,7 +11,8 @@ jobs:
           name: Install dependencies
           command: |
             apk add --no-cache \
-              make
+              make \
+              git
       - run:
           name: Detect changed directories
           command: |

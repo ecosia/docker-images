@@ -2,6 +2,7 @@
 
 VERSION?=0.1
 
+
 build:
 	docker build -t ecosiadev/mbt:${VERSION} ./
 

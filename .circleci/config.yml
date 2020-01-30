@@ -26,6 +26,10 @@ jobs:
             echo "Filenames in diff: $filenames"
             echo $filenames | xargs dirname | uniq > .modified
       - run:
+          name: Log in to docker hub
+          command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run:
           name: Build and push modified images
           command: |
             while read d; do
@@ -35,6 +39,6 @@ jobs:
               set -e
               if [ $status -eq 1 ]; then
                 make -C $d build
-                # make -C $d push
+                make -C $d push
               fi
             done < .modified

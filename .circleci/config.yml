@@ -1,0 +1,44 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: docker
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache \
+              make \
+              git \
+              coreutils \
+              findutils
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Detect changed directories
+          command: |
+            if [ $CIRCLE_BRANCH == "master" ]; then
+              filenames=$(git diff-tree --no-commit-id --name-only -r HEAD)
+            else
+              filenames=$(git diff origin/master --name-only)
+            fi
+            echo "Filenames in diff: $filenames"
+            echo $filenames | xargs dirname | uniq > .modified
+      - run:
+          name: Log in to docker hub
+          command: |
+            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run:
+          name: Build and push modified images
+          command: |
+            while read d; do
+              set +e
+              makeable=$(make -s -q -C $d build) > /dev/null
+              status=$?
+              set -e
+              if [ $status -eq 1 ]; then
+                make -C $d build
+                make -C $d push
+              fi
+            done < .modified

@@ -21,8 +21,10 @@ jobs:
           name: Build and push modified images
           command: |
             while read d; do
+              set +e
               makeable=$(make -s -q -C $d build) > /dev/null
               status=$?
+              set -e
               if [ $status -eq 1 ]; then
                 make -C $d build
                 # make -C $d push

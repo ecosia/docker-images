@@ -33,4 +33,10 @@ RUN mkdir -p ~/.terraform.d/plugins/linux_amd64 && \
     sudo mv /terraform-provider-pingdom ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom_v$(date +%Y.%m.%d) && sudo chown -R circleci:circleci ~/.terraform.d
 
 ENV PATH="~/.local/bin:${PATH}"
-RUN pip3 install --user awscli && pip install --user pipenv
+RUN pip3 install --user \
+    awscli \
+    pipenv \
+    jsonnet \
+    gitpython \
+    hvac \
+    pyyaml

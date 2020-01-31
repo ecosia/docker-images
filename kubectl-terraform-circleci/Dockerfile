@@ -15,7 +15,8 @@ RUN apk add --update \
     git \
     openssh-client \
     g++ \
-    bash
+    bash \
+    curl
 
 COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=helm /usr/bin/helm /usr/local/bin/helm

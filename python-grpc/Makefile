@@ -1,6 +1,6 @@
 .PHONY: build push pull
 
-VERSION?=v0.1
+VERSION?=v0.2
 TAG?=ecosiadev/python-grpc
 
 build:

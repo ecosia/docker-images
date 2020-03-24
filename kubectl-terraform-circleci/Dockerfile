@@ -7,6 +7,7 @@ RUN git clone https://github.com/louy/terraform-provider-uptimerobot && \
 
 FROM hashicorp/terraform:0.12.9 as tf
 FROM ecosiadev/kubectl:v1.11.6 as kubectl
+FROM ecosiadev/kustomize:v3.5.4 as kustomize
 FROM vault:1.0.3 as vault
 FROM alpine/helm:2.13.1 as helm
 
@@ -22,6 +23,7 @@ RUN apk add --update \
     curl
 
 COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/kubectl
+COPY --from=kustomize /usr/bin/kustomize /usr/local/bin/kustomize
 COPY --from=helm /usr/bin/helm /usr/local/bin/helm
 COPY --from=vault /bin/vault /usr/local/bin/vault
 COPY --from=tf /bin/terraform /usr/local/bin/terraform

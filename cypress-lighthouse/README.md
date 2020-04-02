@@ -1,3 +1,3 @@
-# Ecosia Cypress Base
+# Cypress Lighthouse
 
-This image is almost identical to [`ecosiadev/cypress-base:10.15.3`](../cypress-base), except it installs `chromium` for Lighthouse to find and run.
+This image installs `chromium` on the base image [`ecosiadev/cypress-base:10.15.3`](../cypress-base), so Lighthouse finds and uses it to run tests.

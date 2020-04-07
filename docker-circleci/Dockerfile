@@ -17,3 +17,4 @@ RUN apk upgrade && \
 
 RUN pip3 install --user awscli
 ENV PATH="~/.local/bin:${PATH}"
+ENV DOCKER_CLI_EXPERIMENTAL="enabled"

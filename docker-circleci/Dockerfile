@@ -7,12 +7,13 @@ COPY --from=gobuilder /go/bin/docker-credential-ecr-login /usr/local/bin/docker-
 
 RUN apk upgrade && \
     apk add --update \
-    make \
-    git \
     bash \
+    git \
+    jq \
+    make \
     openssh-client \
-    python3 \
     parallel \
+    python3 \
     sudo
 
 RUN pip3 install --user awscli

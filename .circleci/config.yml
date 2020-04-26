@@ -4,6 +4,7 @@ jobs:
     working_directory: /app
     docker:
       - image: docker
+    resource_class: small
     steps:
       - run:
           name: Install dependencies

@@ -38,5 +38,5 @@ WORKDIR /home/circleci
 RUN mkdir -p ~/.terraform.d/plugins/linux_amd64 && \
     sudo mv /tfproviders/* ~/.terraform.d/plugins/linux_amd64/ && sudo chown -R circleci:circleci ~/.terraform.d
 
-ENV PATH="~/.local/bin:${PATH}"
+ENV PATH "/home/circleci/.local/bin:$PATH"
 RUN pip3 install --user awscli && pip install --user pipenv

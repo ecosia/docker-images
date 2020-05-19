@@ -6,7 +6,7 @@ RUN go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/dock
 RUN go get -u github.com/russellcardullo/terraform-provider-pingdom
 
 FROM hashicorp/terraform:0.12.9 as tf
-FROM ecosiadev/kubectl:v1.11.6 as kubectl
+FROM ecosiadev/kubectl:v1.12.0 as kubectl
 FROM vault:1.0.3 as vault
 FROM alpine/helm:2.13.1 as helm
 FROM ecosiadev/mbt:0.1 AS mbt
@@ -40,7 +40,7 @@ COPY --from=vault /bin/vault /usr/local/bin/vault
 COPY --from=helm /usr/bin/helm /usr/local/bin/helm
 COPY --from=mbt /go/bin/mbt /usr/local/bin/mbt
 COPY --from=intermediate /go/bin/terraform-provider-pingdom /terraform-provider-pingdom
- 
+
 RUN addgroup -S circleci && adduser --shell /bin/bash -S -G circleci circleci
 RUN echo "circleci ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 

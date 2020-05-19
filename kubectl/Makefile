@@ -1,7 +1,7 @@
 .PHONY: build push pull
 
-VERSION?=0.116.0
-TAG?=ecosiadev/helmfile
+VERSION?=v1.12.10
+TAG?=ecosiadev/kubectl
 
 build:
 	docker build -t ${TAG}:${VERSION} ./

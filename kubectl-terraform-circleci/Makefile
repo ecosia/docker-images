@@ -1,16 +1,17 @@
 .PHONY: build push pull
 
-VERSION?=0.4
+VERSION?=0.5
+TAG?=kubectl-terraform-circleci
 
 build:
-	docker build -t ecosiadev/kubectl-terraform-circleci:${VERSION} ./
+	docker build -t ecosiadev/${TAG}:${VERSION} ./
 
 push:
-	docker push ecosiadev/kubectl-terraform-circleci:${VERSION}
+	docker push ecosiadev/${TAG}:${VERSION}
 
 latest:
-	docker build -t ecosiadev/kubectl-terraform-circleci:latest ./
-	docker push ecosiadev/kubectl-terraform-circleci:latest
+	docker build -t ecosiadev/${TAG}:latest ./
+	docker push ecosiadev/${TAG}:latest
 
 pull:
-	docker pull ecosiadev/kubectl-terraform-circleci:latest
+	docker pull ecosiadev/${TAG}:latest

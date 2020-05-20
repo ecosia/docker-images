@@ -5,7 +5,7 @@ RUN git clone https://github.com/louy/terraform-provider-uptimerobot && \
     cd terraform-provider-uptimerobot && \
     go install
 
-FROM hashicorp/terraform:0.12.9 as tf
+FROM hashicorp/terraform:0.12.25 as tf
 FROM ecosiadev/kubectl:v1.12.10 as kubectl
 FROM ecosiadev/kustomize:v3.5.4 as kustomize
 FROM vault:1.0.3 as vault

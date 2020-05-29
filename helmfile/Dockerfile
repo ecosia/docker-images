@@ -1,5 +1,5 @@
 FROM vault:1.3.3 as vault
-FROM ecosiadev/kubectl:v1.12.10 as kubectl
+FROM ecosiadev/kubectl:v1.13.12 as kubectl
 FROM alpine/helm:3.1.2 as helm
 FROM chatwork/helmfile:0.116.0
 

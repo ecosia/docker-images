@@ -1,6 +1,6 @@
 .PHONY: build push pull
 
-VERSION?=0.116.0
+VERSION?=1.13.12
 TAG?=ecosiadev/helmfile
 
 build:

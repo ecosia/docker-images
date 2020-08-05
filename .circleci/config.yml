@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /app
     docker:
-      - image: circleci/node:12.18.3
+      - image: docker-node
     steps:
       - run:
           name: Install dependencies

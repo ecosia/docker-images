@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: /app
     docker:
-      - image: docker:19
+      - image: docker
     steps:
       - run:
           name: Install dependencies

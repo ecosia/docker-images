@@ -14,6 +14,7 @@ RUN apk upgrade && \
     openssh-client \
     parallel \
     python3 \
+    py3-pip \
     sudo
 
 RUN pip3 install --user awscli

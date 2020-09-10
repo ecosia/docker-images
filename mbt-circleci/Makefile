@@ -1,6 +1,6 @@
 .PHONY: build push pull
 
-VERSION?=0.2
+VERSION?=0.3
 
 build:
 	docker build -t ecosiadev/mbt-circleci:${VERSION} ./

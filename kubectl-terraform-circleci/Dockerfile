@@ -6,7 +6,7 @@ RUN git clone https://github.com/louy/terraform-provider-uptimerobot && \
     go install
 
 FROM hashicorp/terraform:0.12.25 as tf
-FROM ecosiadev/kubectl:v1.14.10 as kubectl
+FROM ecosiadev/kubectl:v1.15.12 as kubectl
 FROM ecosiadev/kustomize:v3.5.4 as kustomize
 FROM vault:1.0.3 as vault
 FROM alpine/helm:2.13.1 as helm

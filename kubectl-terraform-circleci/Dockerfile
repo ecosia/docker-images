@@ -1,6 +1,6 @@
 FROM golang:1.13-alpine as gobuilder
 RUN apk add --update git
-RUN go get -u github.com/russellcardullo/terraform-provider-pingdom
+RUN GO111MODULE=on go get -u github.com/russellcardullo/terraform-provider-pingdom
 RUN git clone https://github.com/louy/terraform-provider-uptimerobot && \
     cd terraform-provider-uptimerobot && \
     go install

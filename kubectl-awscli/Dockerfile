@@ -1,4 +1,4 @@
-FROM ecosiadev/kubectl:v1.14.10
+FROM ecosiadev/kubectl:v1.15.12
 
 ENV AWS_CLI_VERSION 1.15.66
 

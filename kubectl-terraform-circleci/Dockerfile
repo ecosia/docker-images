@@ -38,6 +38,8 @@ COPY --from=helm /usr/bin/helm /usr/local/bin/helm
 COPY --from=vault /bin/vault /usr/local/bin/vault
 COPY --from=build /app/terraform-switcher /usr/local/bin/tfswitch
 
+# tfswitch maintains a symlink for terraform in the /usr/local/bin dir
+# because we run tfswitch as the circleci user we change the ownership here for convenience
 RUN sudo chown circleci /usr/local/bin
 RUN tfswitch 0.12.29
 RUN tfswitch 0.13.5

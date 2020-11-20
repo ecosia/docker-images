@@ -19,10 +19,10 @@ jobs:
       - run:
           name: Detect changed directories
           command: |
-            if [ $CIRCLE_BRANCH == "master" ]; then
+            if [ $CIRCLE_BRANCH == "main" ]; then
               filenames=$(git diff-tree --no-commit-id --name-only -r HEAD)
             else
-              filenames=$(git diff origin/master --name-only)
+              filenames=$(git diff origin/main --name-only)
             fi
             echo ">>> Filenames in diff: $filenames"
             echo $filenames | xargs dirname | uniq > .modified

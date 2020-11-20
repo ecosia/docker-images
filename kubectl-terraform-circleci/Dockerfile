@@ -1,8 +1,15 @@
-FROM hashicorp/terraform:0.13.5 as tf
 FROM ecosiadev/kubectl:v1.15.12 as kubectl
 FROM ecosiadev/kustomize:v3.5.4 as kustomize
 FROM vault:1.0.3 as vault
 FROM alpine/helm:2.13.1 as helm
+
+FROM golang:1.15-alpine as build
+RUN apk upgrade -U -a && \
+          apk upgrade && \
+          apk add --update go gcc g++ git ca-certificates curl make && \
+          git clone https://github.com/warrensbox/terraform-switcher.git /app
+WORKDIR /app
+RUN CGO_ENABLED=1 GOOS=linux go build -a .
 
 FROM python:alpine3.8
 RUN apk add --update \
@@ -29,4 +36,10 @@ COPY --from=kubectl /usr/local/bin/kubectl /usr/local/bin/kubectl
 COPY --from=kustomize /usr/bin/kustomize /usr/local/bin/kustomize
 COPY --from=helm /usr/bin/helm /usr/local/bin/helm
 COPY --from=vault /bin/vault /usr/local/bin/vault
-COPY --from=tf /bin/terraform /usr/local/bin/terraform
+COPY --from=build /app/terraform-switcher /usr/local/bin/tfswitch
+
+# tfswitch maintains a symlink for terraform in the /usr/local/bin dir
+# because we run tfswitch as the circleci user we change the ownership here for convenience
+RUN sudo chown circleci /usr/local/bin
+RUN tfswitch 0.12.29
+RUN tfswitch 0.13.5

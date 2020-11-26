@@ -1,6 +1,6 @@
 .PHONY: build push pull
 
-VERSION?=3.6.0
+VERSION?=3.7.0
 
 build:
 	docker build -t ecosiadev/cypress-base:${VERSION} ./

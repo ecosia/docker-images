@@ -1,4 +1,4 @@
-FROM ecosiadev/cypress-base:3.7.0
+FROM ecosiadev/cypress-base:3.7.1
 
 RUN apt-get update && \
   apt-get install -y chromium

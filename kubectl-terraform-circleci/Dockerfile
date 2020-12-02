@@ -55,4 +55,3 @@ RUN cd /tmp \
     && unzip uptimerobot.zip \
     && mv terraform-provider-uptimerobot ~/.terraform.d/plugins/linux_amd64/terraform-provider-uptimerobot \
     && rm /tmp/*
-    

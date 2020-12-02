@@ -43,3 +43,16 @@ COPY --from=build /app/terraform-switcher /usr/local/bin/tfswitch
 RUN sudo chown circleci /usr/local/bin
 RUN tfswitch 0.12.29
 RUN tfswitch 0.13.5
+
+RUN mkdir -p ~/.terraform.d/plugins/linux_amd64
+RUN cd /tmp \
+    && curl -L https://github.com/russellcardullo/terraform-provider-pingdom/releases/download/v1.1.3/terraform-provider-pingdom_1.1.3_linux_amd64.zip -o pingdom.zip \
+    && unzip pingdom.zip \
+    && mv terraform-provider-pingdom_v1.1.3 ~/.terraform.d/plugins/linux_amd64/terraform-provider-pingdom \
+    && rm /tmp/*
+RUN cd /tmp \
+    && curl -L https://github.com/louy/terraform-provider-uptimerobot/releases/download/v0.5.1/terraform-provider-uptimerobot_0.5.1_linux_amd64.zip -o uptimerobot.zip \
+    && unzip uptimerobot.zip \
+    && mv terraform-provider-uptimerobot ~/.terraform.d/plugins/linux_amd64/terraform-provider-uptimerobot \
+    && rm /tmp/*
+    

@@ -1,4 +1,4 @@
-FROM golang:1.10-alpine3.8
+FROM golang:1.14.13-alpine3.11
 
 RUN apk upgrade && \
     apk add --update \
@@ -11,8 +11,9 @@ RUN apk upgrade && \
     jq \
     openssh-client
 
-RUN apk add libgit2-dev==0.27.3-r0
-RUN go get -u github.com/mbtproject/mbt
+RUN apk add libgit2-dev==0.28.5-r0
+RUN git clone https://github.com/ecosia/mbt
+RUN cd mbt && go build && mv mbt /usr/bin
 
 WORKDIR $GOPATH
 ENTRYPOINT ["mbt"]

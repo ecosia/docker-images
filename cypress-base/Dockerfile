@@ -13,6 +13,6 @@ RUN apt-get update && \
 RUN npm install -g npm@6.14.6
 RUN rm /usr/local/bin/yarnpkg /usr/local/bin/yarn
 RUN npm install -g yarn@1.22.10
-RUN npm install --unsafe-perm=true --allow-root -g cypress@3.4.1
+RUN npm install --unsafe-perm=true --allow-root -g cypress@6.3.0
 
 RUN apt-get clean

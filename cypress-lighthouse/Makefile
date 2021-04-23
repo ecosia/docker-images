@@ -1,6 +1,6 @@
 .PHONY: build push pull
 
-VERSION?=0.4.2
+VERSION?=1.0.0
 
 build:
 	docker build -t ecosiadev/cypress-lighthouse:${VERSION} ./

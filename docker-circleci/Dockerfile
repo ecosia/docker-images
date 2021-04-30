@@ -1,4 +1,4 @@
-FROM golang:1.13-alpine as gobuilder
+FROM golang:1.16-alpine as gobuilder
 RUN apk add --update git
 RUN go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login
 

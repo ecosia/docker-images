@@ -1,6 +1,6 @@
 .PHONY: build push pull
 
-VERSION?=v1.16.15
+VERSION?=v1.17.17
 TAG?=ecosiadev/kubectl
 
 build:

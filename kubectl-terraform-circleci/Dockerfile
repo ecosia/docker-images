@@ -1,4 +1,4 @@
-FROM ecosiadev/kubectl:v1.16.15 as kubectl
+FROM ecosiadev/kubectl:v1.17.17 as kubectl
 FROM ecosiadev/kustomize:v3.5.4 as kustomize
 FROM vault:1.0.3 as vault
 FROM alpine/helm:2.13.1 as helm

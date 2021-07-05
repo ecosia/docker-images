@@ -1,6 +1,6 @@
 .PHONY: build push pull
 
-VERSION?=0.15
+VERSION?=0.14
 TAG?=kubectl-terraform-circleci
 
 build:
